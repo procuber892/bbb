@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Burst Bliss</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            overflow: hidden;
+            margin: 0;
+        }
+        .bubble {
+            position: absolute;
+            background-color: rgba(0, 153, 255, 0.7);
+            border-radius: 50%;
+            cursor: pointer;
+            animation: float 10s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const bubbleCount = 20;
+
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            const size = Math.random() * 50 + 20 + 'px';
+            bubble.style.width = size;
+            bubble.style.height = size;
+            bubble.style.left = Math.random() * 100 + 'vw';
+            bubble.style.top = 100 + 'vh';
+            bubble.addEventListener('click', () => {
+                bubble.remove();
+                playPopSound();
+            });
+            document.body.appendChild(bubble);
+        }
+
+        function playPopSound() {
+            const audio = new Audio('https://www.soundjay.com/button/sounds/button-16.mp3');
+            audio.play();
+        }
+
+        for (let i = 0; i < bubbleCount; i++) {
+            createBubble();
+        }
+
+        setInterval(() => {
+            if (document.querySelectorAll('.bubble').length < bubbleCount) {
+                createBubble();
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
